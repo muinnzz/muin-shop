@@ -1,9 +1,12 @@
+// =========================
+// Keranjang & Cart
+// =========================
 let cart = [];
 
 function addToCart(name, price) {
   cart.push({ name, price });
   updateCartUI();
-  showToast("Produk ditambah ke troli 🛒");
+  showToast(`Produk "${name}" ditambah ke troli 🛒`);
 }
 
 function updateCartUI() {
@@ -12,9 +15,32 @@ function updateCartUI() {
     cartCount.textContent = cart.length;
   }
 }
-function toggleMode() {
+
+// =========================
+// Mode Gelap / Terang
+// =========================
+function toggleMode(){
   document.body.classList.toggle('dark-mode');
+  showToast(document.body.classList.contains('dark-mode') ? "Mode Gelap" : "Mode Terang");
 }
+
+// =========================
+// Toast Notification
+// =========================
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.remove('hidden');
+  toast.style.opacity = '1';
+  setTimeout(()=>{
+    toast.style.opacity = '0';
+    toast.classList.add('hidden');
+  },3000);
+}
+
+// =========================
+// Daftar Produk
+// =========================
 document.addEventListener('DOMContentLoaded', () => {
   const produkList = [];
   for (let i = 1; i <= 12; i++) {
@@ -31,17 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const productSelect = document.getElementById('product');
 
   produkList.forEach(p => {
+    // Card produk
     const card = document.createElement('div');
+    card.className = 'bg-yellow-100 border border-yellow-400 rounded-xl p-4 hover:scale-105 transition shadow-md';
     card.innerHTML = `
       <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded-xl mb-4">
       <h4 class="text-xl font-semibold mb-2">${p.name}</h4>
-      <p class="mb-2">${p.desc}</p>
-      <p class="text-2xl font-bold mb-4">RM${p.price}</p>
-      <button class="w-full neon-button" onclick="beliProduk('${p.name}', ${p.price}, '${p.payLink}')">Beli Sekarang</button>
+      <p class="text-gray-800 mb-2">${p.desc}</p>
+      <p class="text-2xl font-bold text-yellow-600 mb-4">RM${p.price}</p>
+      <div class="flex gap-2">
+        <button class="w-1/2 neon-button" onclick="beliProduk('${p.name}', ${p.price}, '${p.payLink}')">Beli Sekarang</button>
+        <button class="w-1/2 neon-button bg-orange-400 hover:bg-orange-500" onclick="addToCart('${p.name}', ${p.price})">Tambah ke Troli</button>
+      </div>
     `;
     produkDiv.appendChild(card);
 
-    // select option
+    // Tambah ke select form order
     const opt = document.createElement('option');
     opt.value = p.name;
     opt.textContent = p.name;
@@ -49,38 +80,48 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// =========================
+// Fungsi Beli Produk
+// =========================
 function beliProduk(name, price, link) {
   const whatsapp = prompt("Masukkan nombor WhatsApp anda:");
   if (!whatsapp) return;
-  alert(`Order untuk ${name} RM${price} berjaya dicatat!\nSila bayar melalui: ${link}`);
+  showReceipt({name, product: name, price});
   window.open(link, '_blank');
 }
+
+// =========================
+// Resit / Receipt
+// =========================
 function showReceipt(data){
   alert(`
-  RESIT PEMBELIAN
-  Nama: ${data.name}
-  Produk: ${data.product}
-  Harga: RM${data.price}
-  Status: Pending
+RESIT PEMBELIAN
+Nama: ${data.name}
+Produk: ${data.product}
+Harga: RM${data.price}
+Status: Pending
   `);
 }
-function showPopup(msg){
-  const p=document.getElementById('popup');
-  p.textContent=msg;
-  p.classList.remove('hidden');
-  setTimeout(()=>p.classList.add('hidden'),3000);
-}
+
+// =========================
+// Form Order
+// =========================
 document.getElementById('orderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const nama = document.getElementById('name').value;
   const wa = document.getElementById('wa').value;
   const produk = document.getElementById('product').value;
   const note = document.getElementById('note').value;
-  alert(`Order diterima!\nNama: ${nama}\nWhatsApp: ${wa}\nProduk: ${produk}\nNota: ${note}`);
+  showToast(`Order diterima: ${produk} untuk ${nama}`);
+  showReceipt({name: nama, product: produk, price: 'Tentukan harga'});
 });
 
+// =========================
+// Form Login Admin
+// =========================
 document.getElementById('loginForm').addEventListener('submit', function(e){
   e.preventDefault();
   const user = document.getElementById('username').value;
-  alert(`Login dicatat (testing)\nUsername: ${user}`);
+  const pass = document.getElementById('password').value;
+  showToast(`Login dicatat (testing)\nUsername: ${user}`);
 });
