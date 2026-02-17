@@ -32,15 +32,15 @@ db.run(`CREATE TABLE IF NOT EXISTS orders (
   paid INTEGER DEFAULT 0,
   proof TEXT
 )`);
-app.post('/register', (req,res)=>{
-  const {name,email,password} = req.body;
-  db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
-  [name,email,password],
-  err=>{
-    if(err) return res.json({success:false});
-    res.json({success:true});
+app.post('/customer-login',(req,res)=>{
+  const {email,password}=req.body;
+  db.get(`SELECT * FROM customers WHERE email=? AND password=?`,
+  [email,password],
+  (err,row)=>{
+    if(!row) return res.json({success:false});
+    res.json({success:true,user:row});
   });
-}); 
+});
   app.post('/signup',(req,res)=>{
   const {name,email,password}=req.body;
   db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
