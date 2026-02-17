@@ -1,104 +1,116 @@
-// Daftar Produk
+// Fade-in on scroll
+const sections = document.querySelectorAll('section, .hero-section');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('fade-in');
+    }
+  });
+},{threshold:0.2});
+sections.forEach(s=>observer.observe(s));
+
+// Toast helper
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.remove('opacity-0');
+  toast.classList.add('fade-in');
+  setTimeout(()=>{toast.classList.add('opacity-0');},2000);
+}
+
+// Loader
+function showLoader(btn){
+  btn.disabled = true;
+  btn.textContent = 'Memproses...';
+}
+function hideLoader(btn,text){
+  btn.disabled = false;
+  btn.textContent = text;
+}
+
+// Produk
 const produkList = [];
 for(let i=1;i<=12;i++){
   produkList.push({
-    name: `Panel ${i}`,
-    desc: `Servis digital ${i}`,
-    price: i*10,
-    payLink: `https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
-    img: `https://via.placeholder.com/300x200/6366f1/ffffff?text=Panel+${i}`
+    name:`Panel ${i}`,
+    desc:`Servis digital ${i}`,
+    price:i*10,
+    payLink:`https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
+    img:`https://via.placeholder.com/300x200/6366f1/ffffff?text=Panel+${i}`
   });
 }
-
-// Render produk
-const produkDiv = document.getElementById('produk-list');
-const productSelect = document.getElementById('product');
+const produkDiv=document.getElementById('produk-list');
+const productSelect=document.getElementById('product');
 produkList.forEach(p=>{
-  const div = document.createElement('div');
-  div.className = "bg-[#020617] border border-gray-800 rounded-2xl p-4 hover:border-indigo-500 hover:scale-105 transition relative shadow-md";
-  div.innerHTML = `
+  const div=document.createElement('div');
+  div.className="bg-[#020617] border border-gray-800 rounded-2xl p-4 hover:border-indigo-500 hover:scale-105 transition relative shadow-md opacity-0 translate-y-8";
+  div.innerHTML=`
     <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded-xl mb-4">
     <h4 class="text-xl font-semibold mb-2">${p.name}</h4>
     <p class="text-gray-400 mb-2">${p.desc}</p>
     <p class="text-2xl font-bold text-indigo-400 mb-4">RM${p.price}</p>
-    <button class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded-xl mb-2 transition">Beli Sekarang</button>
+    <button class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded-xl mb-2 neon-button transition">Beli Sekarang</button>
   `;
-  div.querySelector('button').onclick = ()=>{
-    const whatsapp = prompt("Masukkan nombor WhatsApp anda:");
+  div.querySelector('button').onclick=async()=>{
+    const whatsapp=prompt("Masukkan nombor WhatsApp anda:");
     if(!whatsapp) return;
-    fetch('/order',{
+    const btn=div.querySelector('button');
+    showLoader(btn);
+    const res=await fetch('/order',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        name:p.name,
-        whatsapp,
-        product:p.name,
-        note:`Order RM${p.price}`
-      })
-    }).then(res=>res.json()).then(result=>{
-      if(result.success) alert("Order berjaya disimpan!");
-      else alert("Order gagal!");
+      body:JSON.stringify({name:p.name,whatsapp,product:p.name,note:`Order RM${p.price}`})
     });
+    const result=await res.json();
+    hideLoader(btn,'Beli Sekarang');
+    if(result.success) showToast('Order berjaya disimpan!');
+    else showToast('Order gagal!');
     window.open(p.payLink,'_blank');
   }
   produkDiv.appendChild(div);
-
-  // select order form
-  const opt = document.createElement('option');
-  opt.value = p.name;
-  opt.textContent = p.name;
+  // fade-in animation
+  observer.observe(div);
+  // add to select
+  const opt=document.createElement('option');
+  opt.value=p.name;
+  opt.textContent=p.name;
   productSelect.appendChild(opt);
 });
 
 // Order form
-document.getElementById('orderForm').addEventListener('submit', async function(e){
+document.getElementById('orderForm').addEventListener('submit', async e=>{
   e.preventDefault();
-  const data = {
-    name: document.getElementById('name').value,
-    whatsapp: document.getElementById('wa').value,
-    product: document.getElementById('product').value,
-    note: document.getElementById('note').value
+  const btn=e.target.querySelector('button');
+  showLoader(btn);
+  const data={
+    name:document.getElementById('name').value,
+    whatsapp:document.getElementById('wa').value,
+    product:document.getElementById('product').value,
+    note:document.getElementById('note').value
   };
-  const res = await fetch('/order',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(data)
-  });
-  const result = await res.json();
-  if(result.success) alert('Order dihantar!');
-  else alert('Order gagal!');
+  const res=await fetch('/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const result=await res.json();
+  hideLoader(btn,'Hantar Order');
+  if(result.success) showToast('Order dihantar!');
+  else showToast('Order gagal!');
 });
 
-// Login form
-document.getElementById('loginForm').addEventListener('submit', async function(e){
+// Login admin + chart
+document.getElementById('loginForm').addEventListener('submit', async e=>{
   e.preventDefault();
-  const data = {
-    username: document.getElementById('username').value,
-    password: document.getElementById('password').value
-  };
-  const res = await fetch('/login',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(data)
-  });
-  const result = await res.json();
+  const btn=e.target.querySelector('button');
+  showLoader(btn);
+  const data={username:document.getElementById('username').value,password:document.getElementById('password').value};
+  const res=await fetch('/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const result=await res.json();
+  hideLoader(btn,'Login');
   if(result.success){
-    alert('Login berjaya!');
-    document.getElementById('admin-chart').classList.remove('hidden');
-
-    const stats = await fetch('/stats').then(r=>r.json());
-    const ctx = document.getElementById('salesChart').getContext('2d');
-    new Chart(ctx,{
-      type:'bar',
-      data:{
-        labels: stats.map(s=>s.product),
-        datasets:[{
-          label:'Jumlah Order',
-          data: stats.map(s=>s.count),
-          backgroundColor:'rgba(99,102,241,0.7)'
-        }]
-      },
-      options:{responsive:true, plugins:{legend:{display:false}}}
-    });
-  } else alert('Username / Password salah!');
+    showToast('Login berjaya!');
+    const chartSec=document.getElementById('admin-chart');
+    chartSec.classList.remove('hidden');
+    observer.observe(chartSec);
+    const stats=await fetch('/stats').then(r=>r.json());
+    const ctx=document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx,{type:'bar',data:{labels:stats.map(s=>s.product),datasets:[{label:'Jumlah Order',data:stats.map(s=>s.count),backgroundColor:'rgba(99,102,241,0.7)'}]},options:{responsive:true,plugins:{legend:{display:false}},animation:{duration:1200}}});
+  }else showToast('Username / Password salah!');
 });
