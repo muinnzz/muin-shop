@@ -59,6 +59,12 @@ app.post('/customer-login',(req,res)=>{
     res.json({success:true});
   });
 });
+  app.get('/revenue',(req,res)=>{
+  db.get(`SELECT SUM(price) as total FROM orders WHERE paid=1`,
+  (err,row)=>{
+    res.json(row);
+  });
+});
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
