@@ -15,21 +15,23 @@ const db = new sqlite3.Database('db.sqlite');
 
 // Buat table jika belum ada
 db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS orders (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    whatsapp TEXT,
-    product TEXT,
-    note TEXT,
-    price INTEGER DEFAULT 10,
-    paid INTEGER DEFAULT 0
-  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS customers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  email TEXT UNIQUE,
+  password TEXT
+)`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT
-  )`);
+db.run(`CREATE TABLE IF NOT EXISTS orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  whatsapp TEXT,
+  product TEXT,
+  price INTEGER,
+  status TEXT DEFAULT 'Pending',
+  paid INTEGER DEFAULT 0,
+  proof TEXT
+)`);
 app.post('/register', (req,res)=>{
   const {name,email,password} = req.body;
   db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
