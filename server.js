@@ -30,7 +30,15 @@ db.serialize(() => {
     username TEXT UNIQUE,
     password TEXT
   )`);
-
+app.post('/register', (req,res)=>{
+  const {name,email,password} = req.body;
+  db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
+  [name,email,password],
+  err=>{
+    if(err) return res.json({success:false});
+    res.json({success:true});
+  });
+});
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
