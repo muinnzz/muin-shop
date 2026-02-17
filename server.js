@@ -39,6 +39,7 @@ app.post('/register', (req,res)=>{
     res.json({success:true});
   });
 });
+ db.run(`ALTER TABLE orders ADD COLUMN status TEXT DEFAULT 'Pending'`); 
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
@@ -47,7 +48,7 @@ app.post('/register', (req,res)=>{
     }
   });
 });
-
+db.run(`ALTER TABLE orders ADD COLUMN status TEXT DEFAULT 'Pending'`);
 // Endpoint: buat order
 app.post('/order', (req,res)=>{
   const {name, whatsapp, product, note, price} = req.body;
