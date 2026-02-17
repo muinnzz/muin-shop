@@ -4,7 +4,9 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 10000;
-
+app.get("/", (req,res)=>{
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
