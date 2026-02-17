@@ -2,11 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 10000;
-app.get("/", (req,res)=>{
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -36,13 +35,20 @@ db.serialize(() => {
   });
 });
 
+app.get("/", (req,res)=>{
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.post('/order', (req,res)=>{
   const {name, whatsapp, product, note, price} = req.body;
-  db.run(`INSERT INTO orders (name, whatsapp, product, note, price) VALUES (?,?,?,?,?)`,
-    [name, whatsapp, product, note, price||10], function(err){
+  db.run(
+    `INSERT INTO orders (name, whatsapp, product, note, price) VALUES (?,?,?,?,?)`,
+    [name, whatsapp, product, note, price||10],
+    function(err){
       if(err) return res.json({success:false, error: err.message});
       res.json({success:true, id:this.lastID});
-    });
+    }
+  );
 });
 
 app.get('/orders', (req,res)=>{
@@ -69,10 +75,16 @@ app.get('/stats', (req,res)=>{
 
 app.post('/login', (req,res)=>{
   const {username,password} = req.body;
-  db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username,password], (err,row)=>{
-    if(err || !row) return res.json({success:false});
-    res.json({success:true});
-  });
+  db.get(
+    `SELECT * FROM users WHERE username=? AND password=?`,
+    [username,password],
+    (err,row)=>{
+      if(err || !row) return res.json({success:false});
+      res.json({success:true});
+    }
+  );
 });
 
-app.listen(PORT, ()=>console.log(`Server running at http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log("Server running on port " + PORT)
+);
