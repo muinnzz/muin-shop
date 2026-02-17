@@ -53,7 +53,15 @@ function beliProduk(name, price, link) {
   alert(`Order untuk ${name} RM${price} berjaya dicatat!\nSila bayar melalui: ${link}`);
   window.open(link, '_blank');
 }
-
+function showReceipt(data){
+  alert(`
+  RESIT PEMBELIAN
+  Nama: ${data.name}
+  Produk: ${data.product}
+  Harga: RM${data.price}
+  Status: Pending
+  `);
+}
 document.getElementById('orderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const nama = document.getElementById('name').value;
