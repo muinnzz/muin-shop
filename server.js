@@ -38,8 +38,7 @@ app.post('/register', (req,res)=>{
     if(err) return res.json({success:false});
     res.json({success:true});
   });
-});
- db.run(`ALTER TABLE orders ADD COLUMN status TEXT DEFAULT 'Pending'`); 
+}); 
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
