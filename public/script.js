@@ -12,9 +12,6 @@ function updateCartUI() {
     cartCount.textContent = cart.length;
   }
 }
-function toggleMode(){
-  document.body.classList.toggle('light');
-}
 function toggleMode() {
   document.body.classList.toggle('dark-mode');
 }
