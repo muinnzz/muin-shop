@@ -65,6 +65,12 @@ app.post('/customer-login',(req,res)=>{
     res.json(row);
   });
 });
+  app.post('/upload-proof',(req,res)=>{
+  const {orderId, proof}=req.body;
+  db.run(`UPDATE orders SET proof=? WHERE id=?`,
+  [proof,orderId],
+  ()=>res.json({success:true}));
+});
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
