@@ -1,22 +1,70 @@
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s forwards;
+/* Body & Font */
+body {
+  background-color: #0a3d62;
+  color: #dfe6e9;
+  font-family: 'Poppins', sans-serif;
 }
 
-.fade-in.delay-200 { animation-delay: 0.2s; }
-.fade-in.delay-400 { animation-delay: 0.4s; }
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Navbar */
+header {
+  background-color: #0984e3;
+  border-bottom: 2px solid #0652dd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0984e3, #00cec9, #74b9ff);
+  color: #ffffff;
+}
+
+/* Produk Card */
+#produk-list .product-card, 
+#produk-list div {
+  background-color: #0652dd;
+  border: 1px solid #00cec9;
+}
+
+/* Tombol Neon */
 .neon-button {
-  box-shadow: 0 0 5px #6366f1, 0 0 10px #6366f1, 0 0 20px #6366f1;
+  background-color: #00cec9;
+  color: #0a3d62;
+  box-shadow: 0 0 10px #00cec9, 0 0 20px #00cec9;
+  transition: all 0.3s ease;
 }
+
 .neon-button:hover {
-  box-shadow: 0 0 10px #6366f1, 0 0 20px #6366f1, 0 0 30px #6366f1;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00cec9, 0 0 30px #00cec9;
+}
+
+/* Order Form & Input */
+input, select, textarea {
+  background-color: #0984e3;
+  color: #dfe6e9;
+  border: 1px solid #00cec9;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #00cec9;
+  box-shadow: 0 0 5px #00cec9;
+}
+
+/* Footer */
+footer {
+  background-color: #0652dd;
+  color: #dfe6e9;
+}
+
+/* Toast Notification */
+#toast {
+  background-color: #00cec9;
+  color: #0a3d62;
+}
+
+/* Animasi / Hover */
+.product-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
 }
