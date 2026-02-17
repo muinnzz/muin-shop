@@ -3,11 +3,6 @@ body {
   background-color: #FFF3A1; /* kuning Zenitsu */
   color: #000;
 }
-body.dark-mode {
-  background-color: #1e1e2f; /* gelap untuk mode gelap */
-  color: #fff;
-}
-
 /* Navbar */
 header {
   background-color: #f5c518; /* kuning tua */
