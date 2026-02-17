@@ -68,8 +68,8 @@ produkList.forEach(p=>{
     window.open(p.payLink,'_blank');
   }
   produkDiv.appendChild(div);
-  // fade-in animation
   observer.observe(div);
+
   // add to select
   const opt=document.createElement('option');
   opt.value=p.name;
