@@ -1,9 +1,118 @@
-body { font-family: 'Poppins', sans-serif; background-color:#FFF3A1; color:#000;}
-body.dark-mode { background-color:#1e1e2f; color:#fff;}
-header { background:#f5c518; padding:1rem; display:flex; justify-content:space-between;}
-.neon-button { background:#ffd700; padding:.75rem 1.5rem; border-radius:1.5rem; font-weight:600; color:#333; cursor:pointer;}
-#produk-list div { background:#fff1b8; padding:1rem; border-radius:1rem; margin-bottom:1rem;}
-#admin-panel table { width:100%; border-collapse:collapse; margin-top:1rem;}
-#admin-panel th,#admin-panel td { border:1px solid #ccc; padding:0.5rem; text-align:center;}
-.hidden{display:none;}
-.popup { position:fixed; bottom:10px; right:10px; background:#ffd700; padding:10px; border-radius:10px; display:none; }
+/* BODY & FONTS */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg,#fff3a1,#f5c518);
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(180deg,#1e1e2f,#0a0a1a);
+  color: #fff;
+}
+
+/* HEADER / NAVBAR */
+header {
+  background-color: #f5c518;
+  padding: 1rem;
+  border-bottom: 2px solid #e0b700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+}
+
+header a:hover {
+  color: #fff;
+}
+
+header button {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero-section {
+  text-align: center;
+  padding: 6rem 1rem;
+}
+
+.hero-banner {
+  background-image: url('https://i.ibb.co/YQ6L4wG/zenitsu-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+}
+
+/* NEON BUTTON */
+.neon-button {
+  background-color: #ffd700;
+  color: #000;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.neon-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
+}
+
+/* PRODUK CARD */
+#produk-list div {
+  background-color: #fff8dc;
+  border: 1px solid #ffd700;
+  border-radius: 1rem;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+#produk-list div:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* FORM */
+input, select, textarea {
+  background-color: #fff8dc;
+  border: 1px solid #ffd700;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 5px #ffd700;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+/* POPUP */
+#popup {
+  z-index: 999;
+}
+
+/* ANIMASI CARD */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
