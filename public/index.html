@@ -3,85 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muin Shop Firebase</title>
-<link rel="stylesheet" href="style.css">
+<title>Muin Shop - Zenitsu Theme</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body class="font-poppins">
 
-<header>
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
-    <h1>MUIN SHOP</h1>
-    <div class="space-x-4">
-      🛒 <span id="cart-count" class="cart-count">0</span>
-      <a href="#produk">Produk</a>
-      <a href="#order">Order</a>
-      <a href="#admin-login">Admin</a>
-      <button onclick="toggleMode()" class="mode-btn">Mode</button>
-    </div>
+<!-- Navbar -->
+<header class="flex justify-between items-center px-4 py-4">
+  <h1 class="text-2xl font-bold">MUIN SHOP</h1>
+  <div class="flex items-center gap-4">
+    <span class="relative ml-4">🛒 <span id="cart-count" class="bg-red-500 text-xs px-2 rounded-full">0</span></span>
+    <a href="#produk">Produk</a>
+    <a href="#order">Order</a>
+    <a href="#login">Login</a>
+    <button onclick="toggleMode()">Mode</button>
   </div>
 </header>
 
-<section class="hero-section">
+<!-- Hero Banner -->
+<section class="hero-section text-center py-24 px-4">
   <div class="hero-banner"></div>
-  <h2>Panel & Servis Digital</h2>
-  <p>Website kedai digital moden untuk jual servis dan panel online.</p>
-  <a href="#produk" class="neon-button">Lihat Produk</a>
+  <h2 class="text-4xl font-extrabold mt-6">Panel & Servis Digital</h2>
+  <p class="mt-4">Website kedai digital moden untuk jual servis, panel atau produk online dengan mudah.</p>
+  <a href="#produk" class="neon-button mt-6 inline-block">Lihat Senarai Produk</a>
 </section>
 
-<section id="produk">
-  <h3>Senarai Produk</h3>
+<!-- Produk Section -->
+<section id="produk" class="max-w-6xl mx-auto py-16 px-4">
+  <h3 class="text-3xl font-bold mb-10 text-center">Senarai Produk</h3>
   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="produk-list"></div>
 </section>
 
-<section id="order">
+<!-- Order Form -->
+<section id="order" class="py-20">
   <div class="max-w-xl mx-auto">
-    <h3>Borang Order</h3>
-    <form id="orderForm">
+    <h3 class="text-3xl font-bold mb-6 text-center">Borang Order</h3>
+    <form id="orderForm" class="space-y-4">
       <input type="text" id="name" placeholder="Nama" required />
       <input type="text" id="wa" placeholder="WhatsApp" required />
       <select id="product" required>
         <option value="">Pilih Produk</option>
       </select>
       <textarea id="note" placeholder="Nota tambahan"></textarea>
-      <button type="submit" class="neon-button">Hantar Order</button>
+      <button type="submit" class="neon-button w-full">Hantar Order</button>
     </form>
   </div>
 </section>
 
-<section id="admin-login">
+<!-- Login Admin -->
+<section id="login" class="py-20">
   <div class="max-w-md mx-auto">
-    <h3>Login Admin</h3>
-    <form id="adminForm">
-      <input type="email" id="adminUser" placeholder="Email" required>
-      <input type="password" id="adminPass" placeholder="Password" required>
-      <button type="submit" class="neon-button">Login</button>
+    <h3 class="text-2xl font-bold mb-6 text-center">Login Admin</h3>
+    <form id="loginForm" class="space-y-4">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit" class="neon-button w-full">Login</button>
     </form>
   </div>
 </section>
 
-<section id="admin-panel" class="hidden">
-  <div class="max-w-4xl mx-auto">
-    <h3>Admin Panel</h3>
-    <table id="orderTable">
-      <thead>
-        <tr>
-          <th>ID</th><th>Nama</th><th>Produk</th><th>Harga</th><th>WA</th><th>Status</th><th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <h4>Statistik Order</h4>
+<!-- Admin Chart -->
+<section id="admin-chart" class="py-20 hidden">
+  <div class="max-w-3xl mx-auto">
+    <h3 class="text-2xl font-bold mb-6 text-center">Statistik Jualan</h3>
     <canvas id="salesChart"></canvas>
   </div>
 </section>
 
-<div id="popup" class="popup"></div>
-<footer>© 2026 Muin Shop</footer>
+<!-- Popup / Toast -->
+<div id="popup" class="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden"></div>
+
+<footer class="bg-yellow-400 text-black text-center py-4 mt-12">© 2026 Muin Shop</footer>
+
 <script src="script.js"></script>
 </body>
 </html>
