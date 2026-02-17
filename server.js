@@ -76,6 +76,15 @@ app.post('/verify-payment', (req,res)=>{
     res.json({success:true});
   });
 });
+app.post('/update-status',(req,res)=>{
+  const {id,status} = req.body;
+  db.run(`UPDATE orders SET status=? WHERE id=?`,
+  [status,id],
+  err=>{
+    if(err) return res.json({success:false});
+    res.json({success:true});
+  });
+});
 
 // Endpoint: stats chart
 app.get('/stats', (req,res)=>{
