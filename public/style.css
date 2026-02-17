@@ -1,54 +1,41 @@
 body {
-  background-color: #FFF3A1;
+  background: linear-gradient(180deg,#fef3c7,#facc15);
   color: #000;
-  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
+
 body.dark-mode {
-  background-color: #1e1e2f;
+  background: #1e1e2f;
   color: #fff;
 }
 
+/* Navbar */
 header {
-  background-color: #f5c518;
-  border-bottom: 2px solid #e0b700;
-  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  background-color: #fcd34d;
 }
 
 header a {
-  color: #333;
+  margin-left: 0.5rem;
   text-decoration: none;
-  margin-left: 10px;
+  color: #333;
 }
 
-header a:hover {
-  color: #fff;
-}
-
-/* Hero */
 .hero-section {
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 6rem 1rem;
 }
-.hero-section h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
+
 .hero-banner {
-  background-image: url('https://via.placeholder.com/1200x300?text=Banner+Zenitsu');
+  background-image: url('https://via.placeholder.com/1200x300?text=Banner+Muin+Shop');
   background-size: cover;
   background-position: center;
-  width: 100%;
   height: 300px;
-  border-radius: 1rem;
   margin-bottom: 2rem;
+  border-radius: 1rem;
 }
 
 /* Neon Button */
@@ -60,9 +47,8 @@ header a:hover {
   border-radius: 1.5rem;
   box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
   transition: all 0.3s ease;
-  display: inline-block;
-  cursor: pointer;
 }
+
 .neon-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
@@ -70,7 +56,7 @@ header a:hover {
 
 /* Produk Cards */
 #produk-list div {
-  background-color: #fff1b8;
+  background-color: #fff8dc;
   border: 1px solid #ffd700;
   border-radius: 1rem;
   padding: 1rem;
@@ -78,47 +64,32 @@ header a:hover {
   transform: translateY(20px);
   animation: fadeInUp 0.5s forwards;
 }
+
 #produk-list div:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-#produk-list h4, #produk-list p {
-  color: #333;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Inputs */
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form */
 input, select, textarea {
-  background-color: #fff8dc;
-  color: #333;
-  border: 1px solid #ffd700;
-  border-radius: 1rem;
-  padding: 0.75rem;
   width: 100%;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid #ffd700;
   margin-bottom: 1rem;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: #ffd700;
-  box-shadow: 0 0 5px #ffd700;
   outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 5px #f59e0b;
 }
 
-h3 {
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-/* Footer */
-footer {
-  background-color: #f5c518;
-  color: #333;
-  text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
-}
-
-/* Fade-in Animation */
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Popup */
+#popup {
+  display: none;
+  z-index: 50;
 }
