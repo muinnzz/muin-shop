@@ -1,23 +1,15 @@
-/* ====================
-   BODY & FONT
-==================== */
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #FFF3A1; /* Kuning Zenitsu */
+  background-color: #FFF3A1;
   color: #000;
   transition: all 0.3s ease;
 }
-
 body.dark-mode {
   background-color: #1e1e2f;
   color: #fff;
 }
 
-/* ====================
-   HEADER / NAVBAR
-==================== */
 header {
-  background-color: #f5c518; /* Kuning tua */
+  background-color: #f5c518;
   border-bottom: 2px solid #e0b700;
   padding: 1rem;
   display: flex;
@@ -28,52 +20,29 @@ header {
 header a {
   color: #333;
   text-decoration: none;
-  margin-left: 1rem;
-  transition: color 0.3s ease;
+  margin-left: 10px;
 }
 
 header a:hover {
   color: #fff;
 }
 
-header button {
-  background-color: #ffd700;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-header button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700;
-}
-
-/* ====================
-   HERO SECTION
-==================== */
+/* Hero */
 .hero-section {
   text-align: center;
-  padding: 5rem 1rem;
-  position: relative;
+  padding: 4rem 1rem;
 }
-
 .hero-section h2 {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
-
 .hero-section p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
 }
-
-/* Banner */
 .hero-banner {
-  background-image: url('https://i.ibb.co/vCzQy1TK/zenitsu-banner.jpg'); 
+  background-image: url('https://via.placeholder.com/1200x300?text=Banner+Zenitsu');
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -82,9 +51,7 @@ header button:hover {
   margin-bottom: 2rem;
 }
 
-/* ====================
-   NEON BUTTON
-==================== */
+/* Neon Button */
 .neon-button {
   background-color: #ffd700;
   color: #333;
@@ -93,42 +60,33 @@ header button:hover {
   border-radius: 1.5rem;
   box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
   transition: all 0.3s ease;
-  cursor: pointer;
   display: inline-block;
-  text-align: center;
+  cursor: pointer;
 }
-
 .neon-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
 }
 
-/* ====================
-   PRODUK CARDS
-==================== */
+/* Produk Cards */
 #produk-list div {
   background-color: #fff1b8;
   border: 1px solid #ffd700;
   border-radius: 1rem;
   padding: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s forwards;
 }
-
 #produk-list div:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
-
 #produk-list h4, #produk-list p {
   color: #333;
 }
 
-/* ====================
-   FORM INPUTS
-==================== */
+/* Inputs */
 input, select, textarea {
   background-color: #fff8dc;
   color: #333;
@@ -138,58 +96,29 @@ input, select, textarea {
   width: 100%;
   margin-bottom: 1rem;
 }
-
 input:focus, select:focus, textarea:focus {
   border-color: #ffd700;
   box-shadow: 0 0 5px #ffd700;
   outline: none;
 }
 
-/* ====================
-   SECTION TITLES
-==================== */
 h3 {
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
-  background: linear-gradient(90deg,#facc15,#fde047);
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
-/* ====================
-   FOOTER
-==================== */
+/* Footer */
 footer {
   background-color: #f5c518;
   color: #333;
   text-align: center;
   padding: 1rem 0;
+  margin-top: 2rem;
 }
 
-/* ====================
-   ANIMASI
-==================== */
+/* Fade-in Animation */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Popup QR / Toast */
-#popup {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: #ffd700;
-  color: #000;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 10px #ffd700;
-  z-index: 100;
-  display: none;
-  text-align: center;
-}
-
-#popup.show {
-  display: block;
 }
