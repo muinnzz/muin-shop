@@ -13,63 +13,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Database
 const db = new sqlite3.Database('db.sqlite');
 
-// Buat table jika belum ada
 db.serialize(() => {
+  // Customers
   db.run(`CREATE TABLE IF NOT EXISTS customers (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  email TEXT UNIQUE,
-  password TEXT
-)`);
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT UNIQUE,
+    password TEXT
+  )`);
 
-db.run(`CREATE TABLE IF NOT EXISTS orders (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  whatsapp TEXT,
-  product TEXT,
-  price INTEGER,
-  status TEXT DEFAULT 'Pending',
-  paid INTEGER DEFAULT 0,
-  proof TEXT
-)`);
-app.post('/customer-login',(req,res)=>{
-  const {email,password}=req.body;
-  db.get(`SELECT * FROM customers WHERE email=? AND password=?`,
-  [email,password],
-  (err,row)=>{
-    if(!row) return res.json({success:false});
-    res.json({success:true,user:row});
-  });
-});
-  app.post('/signup',(req,res)=>{
-  const {name,email,password}=req.body;
-  db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
-  [name,email,password],
-  err=>{
-    if(err) return res.json({success:false});
-    res.json({success:true});
-  });
-});
-  const {id,status}=req.body;
-  db.run(`UPDATE orders SET status=? WHERE id=?`,
-  [status,id],
-  err=>{
-    if(err) return res.json({success:false});
-    res.json({success:true});
-  });
-});
-  app.get('/revenue',(req,res)=>{
-  db.get(`SELECT SUM(price) as total FROM orders WHERE paid=1`,
-  (err,row)=>{
-    res.json(row);
-  });
-});
-  app.post('/upload-proof',(req,res)=>{
-  const {orderId, proof}=req.body;
-  db.run(`UPDATE orders SET proof=? WHERE id=?`,
-  [proof,orderId],
-  ()=>res.json({success:true}));
-});
+  // Orders
+  db.run(`CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    whatsapp TEXT,
+    product TEXT,
+    note TEXT,
+    price INTEGER,
+    status TEXT DEFAULT 'Pending',
+    paid INTEGER DEFAULT 0,
+    proof TEXT
+  )`);
+
+  // Users/Admin
+  db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT
+  )`);
+
   // Admin default
   db.get(`SELECT * FROM users WHERE username='admin'`, (err,row)=>{
     if(!row){
@@ -78,8 +50,45 @@ app.post('/customer-login',(req,res)=>{
     }
   });
 });
-db.run(`ALTER TABLE orders ADD COLUMN status TEXT DEFAULT 'Pending'`);
-// Endpoint: buat order
+
+// ----- ROUTES -----
+// Customer signup/login
+app.post('/signup', (req,res)=>{
+  const {name,email,password}=req.body;
+  db.run(`INSERT INTO customers (name,email,password) VALUES (?,?,?)`,
+    [name,email,password],
+    err=>{
+      if(err) return res.json({success:false});
+      res.json({success:true});
+    });
+});
+
+app.post('/customer-login',(req,res)=>{
+  const {email,password}=req.body;
+  db.get(`SELECT * FROM customers WHERE email=? AND password=?`,
+    [email,password],
+    (err,row)=>{
+      if(!row) return res.json({success:false});
+      res.json({success:true,user:row});
+    });
+});
+
+// Update order status
+app.post('/update-status',(req,res)=>{
+  const {id,status} = req.body;
+  db.run(`UPDATE orders SET status=? WHERE id=?`, [status,id], err=>{
+    if(err) return res.json({success:false});
+    res.json({success:true});
+  });
+});
+
+// Upload proof
+app.post('/upload-proof',(req,res)=>{
+  const {orderId, proof}=req.body;
+  db.run(`UPDATE orders SET proof=? WHERE id=?`, [proof,orderId], ()=>res.json({success:true}));
+});
+
+// Create order
 app.post('/order', (req,res)=>{
   const {name, whatsapp, product, note, price} = req.body;
   db.run(`INSERT INTO orders (name, whatsapp, product, note, price) VALUES (?,?,?,?,?)`,
@@ -90,7 +99,7 @@ app.post('/order', (req,res)=>{
     });
 });
 
-// Endpoint: ambil semua order
+// Get all orders
 app.get('/orders', (req,res)=>{
   db.all(`SELECT * FROM orders ORDER BY id DESC`, (err, rows)=>{
     if(err) return res.json([]);
@@ -98,7 +107,7 @@ app.get('/orders', (req,res)=>{
   });
 });
 
-// Endpoint: verifikasi pembayaran (manual)
+// Verify payment
 app.post('/verify-payment', (req,res)=>{
   const {orderId} = req.body;
   db.run(`UPDATE orders SET paid=1 WHERE id=?`, [orderId], function(err){
@@ -106,17 +115,8 @@ app.post('/verify-payment', (req,res)=>{
     res.json({success:true});
   });
 });
-app.post('/update-status',(req,res)=>{
-  const {id,status} = req.body;
-  db.run(`UPDATE orders SET status=? WHERE id=?`,
-  [status,id],
-  err=>{
-    if(err) return res.json({success:false});
-    res.json({success:true});
-  });
-});
 
-// Endpoint: stats chart
+// Stats
 app.get('/stats', (req,res)=>{
   db.all(`SELECT product, COUNT(*) as count FROM orders GROUP BY product`, (err,rows)=>{
     if(err) return res.json([]);
@@ -124,7 +124,7 @@ app.get('/stats', (req,res)=>{
   });
 });
 
-// Endpoint: login admin
+// Admin login
 app.post('/login', (req,res)=>{
   const {username,password} = req.body;
   db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username,password], (err,row)=>{
@@ -133,5 +133,5 @@ app.post('/login', (req,res)=>{
   });
 });
 
-// Jalankan server
+// Start server
 app.listen(PORT, ()=>console.log(`Server running at http://localhost:${PORT}`));
