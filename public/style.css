@@ -1,11 +1,7 @@
-/* =========================
-   Muin Shop - Tema Biru Laut
-   ========================= */
-
 /* Body & Font */
 body {
-  background-color: #0a3d62; /* laut gelap */
-  color: #dfe6e9; /* teks terang */
+  background-color: #f9d71c; /* kuning Zenitsu */
+  color: #333;
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
   margin: 0;
@@ -14,64 +10,74 @@ body {
 
 /* Navbar */
 header {
-  background-color: #0984e3; /* biru medium */
-  border-bottom: 2px solid #0652dd; /* biru tua */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  background-color: #f5c518; /* kuning tua */
+  border-bottom: 2px solid #e0b700;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header a {
-  color: #dfe6e9;
+  color: #333;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 header a:hover {
-  color: #00cec9;
+  color: #fff;
 }
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #0984e3, #00cec9, #74b9ff);
-  color: #ffffff;
   text-align: center;
   padding: 6rem 1rem;
   position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 0.2s;
 }
 
 .hero-section h2 {
   font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .hero-section p {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Hero Banner */
+.hero-banner {
+  background-image: url('https://i.imgur.com/F0KfR1j.png'); /* contoh banner Zenitsu */
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
   margin-bottom: 2rem;
 }
 
 /* Neon Button */
 .neon-button {
-  background-color: #00cec9;
-  color: #0a3d62;
+  background-color: #ffd700; /* kuning terang */
+  color: #333;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 1.5rem;
-  box-shadow: 0 0 10px #00cec9, 0 0 20px #00cec9;
+  box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .neon-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px #00cec9, 0 0 30px #00cec9;
+  box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
 }
 
-/* Produk Section */
-#produk-list .product-card, 
+/* Produk */
 #produk-list div {
-  background-color: #0652dd;
-  border: 1px solid #00cec9;
+  background-color: #fff1b8; /* latar card kuning lembut */
+  border: 1px solid #ffd700;
   border-radius: 1rem;
   padding: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -80,106 +86,49 @@ header a:hover {
   animation: fadeInUp 0.5s forwards;
 }
 
-#produk-list .product-card:hover {
+#produk-list div:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* Produk teks */
-#produk-list h4 {
-  color: #dfe6e9;
-  font-weight: 600;
+#produk-list h4, #produk-list p {
+  color: #333;
 }
 
-#produk-list p {
-  color: #dfe6e9;
-}
-
-/* Order Form & Inputs */
+/* Form Inputs */
 input, select, textarea {
-  background-color: #0984e3;
-  color: #dfe6e9;
-  border: 1px solid #00cec9;
+  background-color: #fff8dc;
+  color: #333;
+  border: 1px solid #ffd700;
   border-radius: 1rem;
   padding: 0.75rem;
   width: 100%;
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: #00cec9;
-  box-shadow: 0 0 5px #00cec9;
+  border-color: #ffd700;
+  box-shadow: 0 0 5px #ffd700;
   outline: none;
 }
 
 /* Section Titles */
 h3 {
-  color: #dfe6e9;
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-/* Login Form */
-#login form input, #login form button {
-  margin-bottom: 1rem;
-}
-
-#login {
-  background-color: #0652dd;
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 400px;
-  margin: 0 auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-/* Admin Chart */
-#admin-chart {
-  background-color: #0652dd;
-  border-radius: 1rem;
-  padding: 2rem;
-  margin: 0 auto;
-  max-width: 900px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-/* Toast Notification */
-#toast {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: #00cec9;
-  color: #0a3d62;
-  padding: 1rem 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
 /* Footer */
 footer {
-  background-color: #0652dd;
-  color: #dfe6e9;
+  background-color: #f5c518;
+  color: #333;
   text-align: center;
   padding: 1rem 0;
 }
 
 /* Animasi Fade In */
 @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Tambah animasi pada semua section */
-.hero-section, #produk, #order, #login, #admin-chart {
-  animation: fadeInUp 1s forwards;
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
