@@ -50,7 +50,6 @@ app.post('/customer-login',(req,res)=>{
     res.json({success:true});
   });
 });
-  app.post('/update-status',(req,res)=>{
   const {id,status}=req.body;
   db.run(`UPDATE orders SET status=? WHERE id=?`,
   [status,id],
