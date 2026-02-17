@@ -3,30 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muin Shop - Zenitsu Theme</title>
+<title>Muin Shop - Lengkap & Interaktif</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="font-poppins">
 
 <!-- Navbar -->
 <header>
   <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
-    <h1 class="text-2xl font-bold text-yellow-500">MUIN SHOP</h1>
-    <div class="space-x-4 flex items-center">
-      <span class="relative ml-4">
+    <h1 class="text-2xl font-bold">MUIN SHOP</h1>
+    <div class="space-x-4">
+      <input type="text" id="searchInput" placeholder="Cari produk..." class="px-2 py-1 rounded border border-gray-400">
+      <span class="relative ml-2">
         🛒 <span id="cart-count" class="bg-red-500 text-xs px-2 rounded-full">0</span>
       </span>
       <a href="#produk">Produk</a>
       <a href="#order">Order</a>
       <a href="#login">Login</a>
-      <button onclick="toggleMode()" class="bg-yellow-400 text-black px-3 py-1 rounded ml-2">Mode</button>
+      <button onclick="toggleMode()" class="bg-yellow-400 text-black px-3 py-1 rounded">Mode</button>
     </div>
   </div>
 </header>
 
-<!-- Hero Banner -->
+<!-- Hero Section -->
 <section class="hero-section">
   <div class="hero-banner"></div>
   <h2>Panel & Servis Digital</h2>
@@ -35,58 +37,45 @@
 </section>
 
 <!-- Produk Section -->
-<section id="produk">
+<section id="produk" class="max-w-6xl mx-auto py-16 px-4">
   <h3>Senarai Produk</h3>
   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="produk-list"></div>
 </section>
 
 <!-- Order Form -->
-<section id="order">
-  <div class="max-w-xl mx-auto">
-    <h3>Borang Order</h3>
-    <form id="orderForm">
-      <input type="text" id="name" placeholder="Nama" required />
-      <input type="text" id="wa" placeholder="WhatsApp" required />
-      <select id="product" required>
-        <option value="">Pilih Produk</option>
-      </select>
-      <textarea id="note" placeholder="Nota tambahan"></textarea>
-      <button type="submit" class="neon-button">Hantar Order</button>
-    </form>
-    <!-- Troli -->
-    <div class="mt-4">
-      <h4>Troli:</h4>
-      <ul id="cart-list"></ul>
-      <p id="cart-total">Total: RM0</p>
-      <button onclick="checkout()" class="neon-button mt-2 w-full">Checkout</button>
-    </div>
-  </div>
+<section id="order" class="max-w-xl mx-auto py-16 px-4">
+  <h3>Borang Order</h3>
+  <form id="orderForm" class="space-y-4">
+    <input type="text" id="name" placeholder="Nama" required />
+    <input type="text" id="wa" placeholder="WhatsApp" required />
+    <select id="product" required>
+      <option value="">Pilih Produk</option>
+    </select>
+    <textarea id="note" placeholder="Nota tambahan"></textarea>
+    <button type="submit" class="neon-button w-full">Hantar Order</button>
+  </form>
 </section>
 
-<!-- Login Admin -->
-<section id="login">
-  <div class="max-w-md mx-auto">
-    <h3>Login Admin</h3>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit" class="neon-button">Login</button>
-    </form>
-  </div>
+<!-- Admin Login -->
+<section id="login" class="max-w-md mx-auto py-16 px-4">
+  <h3>Login Admin</h3>
+  <form id="loginForm" class="space-y-4">
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit" class="neon-button w-full">Login</button>
+  </form>
 </section>
 
 <!-- Admin Chart -->
-<section id="admin-chart" class="hidden">
-  <div class="max-w-3xl mx-auto">
-    <h3>Statistik Jualan</h3>
-    <canvas id="salesChart"></canvas>
-  </div>
+<section id="admin-chart" class="max-w-3xl mx-auto py-16 hidden">
+  <h3>Statistik Jualan</h3>
+  <canvas id="salesChart"></canvas>
 </section>
 
-<!-- Popup / Toast -->
-<div id="popup" class="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden"></div>
+<!-- Toast / Popup -->
+<div id="popup" class="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden z-50"></div>
 
-<footer>
+<footer class="text-center py-4 bg-yellow-400 mt-8">
   © 2026 Muin Shop
 </footer>
 
