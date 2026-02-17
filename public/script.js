@@ -1,3 +1,18 @@
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCartUI();
+  showToast("Produk ditambah ke troli 🛒");
+}
+
+function updateCartUI() {
+  const cartCount = document.getElementById("cart-count");
+  if(cartCount){
+    cartCount.textContent = cart.length;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const produkList = [];
   for (let i = 1; i <= 12; i++) {
