@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muin Shop</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</head>
+<body>
+<header class="p-4 flex justify-between items-center">
+<h1 class="text-indigo-400 text-2xl font-bold">MUIN SHOP</h1>
+<nav>
+<a href="#produk" class="px-3">Produk</a>
+<a href="#order" class="px-3">Order</a>
+<a href="#login" class="px-3 bg-indigo-600 py-2 rounded-xl">Login</a>
+</nav>
+</header>
 
+<section class="py-20 text-center bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
+<h2 class="text-4xl font-bold mb-4">Panel & Servis Digital</h2>
+<p class="text-indigo-100 mb-8">Website kedai digital moden untuk jual servis, panel atau produk online dengan mudah.</p>
+<a href="#produk" class="bg-white text-indigo-700 px-6 py-3 rounded-2xl font-semibold">Lihat Produk</a>
+</section>
+
+<section id="produk" class="p-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></section>
+
+<section id="order" class="p-8 max-w-md mx-auto bg-[#020617] rounded-xl mt-10">
+<h3 class="text-2xl font-bold mb-4">Borang Order</h3>
+<form id="orderForm" class="space-y-3">
+<input type="text" id="name" placeholder="Nama" required>
+<input type="text" id="wa" placeholder="WhatsApp" required>
+<select id="product" required>
+<option value="">Pilih Produk</option>
+${Array.from({length:12},(_,i)=>`<option value="Panel ${i+1}">Panel ${i+1}</option>`).join('')}
+</select>
+<textarea id="note" placeholder="Nota tambahan"></textarea>
+<button type="submit">Hantar Order</button>
+</form>
+</section>
+
+<section id="login" class="p-8 max-w-md mx-auto bg-[#020617] rounded-xl mt-10">
+<h3 class="text-2xl font-bold mb-4 text-center">Login Admin</h3>
+<form id="loginForm" class="space-y-3">
+<input type="text" id="username" placeholder="Username" required>
+<input type="password" id="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+</section>
+
+<footer class="text-center py-4 mt-10 bg-black">© 2026 Muin Shop</footer>
+</body>
+</html>
