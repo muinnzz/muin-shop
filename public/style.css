@@ -1,34 +1,63 @@
+/* =========================
+   Muin Shop - Tema Biru Laut
+   ========================= */
+
 /* Body & Font */
 body {
-  background-color: #0a3d62;
-  color: #dfe6e9;
+  background-color: #0a3d62; /* laut gelap */
+  color: #dfe6e9; /* teks terang */
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 /* Navbar */
 header {
-  background-color: #0984e3;
-  border-bottom: 2px solid #0652dd;
+  background-color: #0984e3; /* biru medium */
+  border-bottom: 2px solid #0652dd; /* biru tua */
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+header a {
+  color: #dfe6e9;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+header a:hover {
+  color: #00cec9;
 }
 
 /* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, #0984e3, #00cec9, #74b9ff);
   color: #ffffff;
+  text-align: center;
+  padding: 6rem 1rem;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards 0.2s;
 }
 
-/* Produk Card */
-#produk-list .product-card, 
-#produk-list div {
-  background-color: #0652dd;
-  border: 1px solid #00cec9;
+.hero-section h2 {
+  font-size: 3rem;
 }
 
-/* Tombol Neon */
+.hero-section p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Neon Button */
 .neon-button {
   background-color: #00cec9;
   color: #0a3d62;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
   box-shadow: 0 0 10px #00cec9, 0 0 20px #00cec9;
   transition: all 0.3s ease;
 }
@@ -38,33 +67,119 @@ header {
   box-shadow: 0 0 20px #00cec9, 0 0 30px #00cec9;
 }
 
-/* Order Form & Input */
+/* Produk Section */
+#produk-list .product-card, 
+#produk-list div {
+  background-color: #0652dd;
+  border: 1px solid #00cec9;
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+#produk-list .product-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Produk teks */
+#produk-list h4 {
+  color: #dfe6e9;
+  font-weight: 600;
+}
+
+#produk-list p {
+  color: #dfe6e9;
+}
+
+/* Order Form & Inputs */
 input, select, textarea {
   background-color: #0984e3;
   color: #dfe6e9;
   border: 1px solid #00cec9;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: #00cec9;
   box-shadow: 0 0 5px #00cec9;
+  outline: none;
+}
+
+/* Section Titles */
+h3 {
+  color: #dfe6e9;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Login Form */
+#login form input, #login form button {
+  margin-bottom: 1rem;
+}
+
+#login {
+  background-color: #0652dd;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Admin Chart */
+#admin-chart {
+  background-color: #0652dd;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 900px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Toast Notification */
+#toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #00cec9;
+  color: #0a3d62;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
 /* Footer */
 footer {
   background-color: #0652dd;
   color: #dfe6e9;
+  text-align: center;
+  padding: 1rem 0;
 }
 
-/* Toast Notification */
-#toast {
-  background-color: #00cec9;
-  color: #0a3d62;
+/* Animasi Fade In */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Animasi / Hover */
-.product-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
+/* Tambah animasi pada semua section */
+.hero-section, #produk, #order, #login, #admin-chart {
+  animation: fadeInUp 1s forwards;
 }
