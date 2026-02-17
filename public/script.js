@@ -15,6 +15,9 @@ function updateCartUI() {
 function toggleMode(){
   document.body.classList.toggle('light');
 }
+function toggleMode() {
+  document.body.classList.toggle('dark-mode');
+}
 document.addEventListener('DOMContentLoaded', () => {
   const produkList = [];
   for (let i = 1; i <= 12; i++) {
