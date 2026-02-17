@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: `Panel ${i}`,
       desc: `Servis digital ${i}`,
       price: i * 10,
-      payLink: `https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
+      payLink: `https://wa.me/60166173129?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
       img: `https://via.placeholder.com/300x200?text=Produk+${i}`
     });
   }
