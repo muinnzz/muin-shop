@@ -3,70 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muin Shop</title>
+<title>Muin Shop - Biru Laut</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-[#0f172a] text-white font-poppins scroll-smooth">
+<body class="font-poppins">
 
 <!-- Navbar -->
-<header class="bg-[#020617] border-b border-gray-800 sticky top-0 z-50 shadow-md">
+<header>
   <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
-    <h1 class="text-2xl font-bold text-indigo-400">MUIN SHOP</h1>
+    <h1>MUIN SHOP</h1>
     <div class="space-x-4">
-      <a href="#produk" class="text-gray-300 hover:text-white transition">Produk</a>
-      <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
-      <a href="#login" class="bg-indigo-600 px-4 py-2 rounded-xl hover:bg-indigo-700 transition">Login</a>
+      <a href="#produk">Produk</a>
+      <a href="#order">Order</a>
+      <a href="#login">Login</a>
     </div>
   </div>
 </header>
 
 <!-- Hero -->
-<section class="hero-section bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 py-24 text-center relative overflow-hidden">
-  <h2 class="text-4xl md:text-5xl font-extrabold mb-4 fade-in">Panel & Servis Digital</h2>
-  <p class="text-indigo-100 max-w-xl mx-auto mb-8 fade-in delay-200">Website kedai digital moden untuk jual servis, panel atau produk online dengan mudah.</p>
-  <a href="#produk" class="inline-block mt-4 bg-white text-indigo-700 px-8 py-3 rounded-2xl font-semibold shadow-lg neon-button hover:scale-105 transition fade-in delay-400">Lihat Senarai Produk</a>
+<section class="hero-section">
+  <h2>Panel & Servis Digital</h2>
+  <p>Website kedai digital moden untuk jual servis, panel atau produk online dengan mudah.</p>
+  <a href="#produk" class="neon-button">Lihat Senarai Produk</a>
 </section>
 
 <!-- Produk Section -->
-<section id="produk" class="max-w-6xl mx-auto py-16 px-4">
-  <h3 class="text-3xl font-bold text-center mb-10 fade-in">Senarai Produk</h3>
+<section id="produk">
+  <h3>Senarai Produk</h3>
   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="produk-list"></div>
 </section>
 
 <!-- Order Form -->
-<section id="order" class="bg-[#020617] py-20">
-  <div class="max-w-xl mx-auto px-4">
-    <h3 class="text-3xl font-bold mb-6 text-center fade-in">Borang Order</h3>
-    <form class="space-y-4" id="orderForm">
-      <input type="text" id="name" placeholder="Nama" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" required />
-      <input type="text" id="wa" placeholder="WhatsApp" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" required />
-      <select id="product" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" required>
+<section id="order">
+  <div class="max-w-xl mx-auto">
+    <h3>Borang Order</h3>
+    <form id="orderForm">
+      <input type="text" id="name" placeholder="Nama" required />
+      <input type="text" id="wa" placeholder="WhatsApp" required />
+      <select id="product" required>
         <option value="">Pilih Produk</option>
       </select>
-      <textarea id="note" placeholder="Nota tambahan" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"></textarea>
-      <button type="submit" class="w-full bg-indigo-600 py-3 rounded-xl neon-button hover:scale-105 transition">Hantar Order</button>
+      <textarea id="note" placeholder="Nota tambahan"></textarea>
+      <button type="submit" class="neon-button">Hantar Order</button>
     </form>
   </div>
 </section>
 
 <!-- Login Admin -->
-<section id="login" class="py-20">
-  <div class="max-w-md mx-auto bg-[#020617] border border-gray-800 rounded-2xl p-8 shadow-lg">
-    <h3 class="text-2xl font-bold mb-6 text-center fade-in">Login Admin</h3>
-    <form id="loginForm" class="space-y-4">
-      <input type="text" id="username" placeholder="Username" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" required />
-      <input type="password" id="password" placeholder="Password" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500" required />
-      <button type="submit" class="w-full bg-indigo-600 py-3 rounded-xl neon-button hover:scale-105 transition">Login</button>
+<section id="login">
+  <div class="max-w-md mx-auto">
+    <h3>Login Admin</h3>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit" class="neon-button">Login</button>
     </form>
   </div>
 </section>
 
-<!-- Toast Notification -->
-<div id="toast" class="fixed bottom-6 right-6 bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-all"></div>
+<!-- Admin Chart -->
+<section id="admin-chart" class="hidden">
+  <div class="max-w-3xl mx-auto">
+    <h3>Statistik Jualan</h3>
+    <canvas id="salesChart"></canvas>
+  </div>
+</section>
 
-<footer class="bg-black text-gray-500 text-center py-4">© 2026 Muin Shop</footer>
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<footer>
+  © 2026 Muin Shop
+</footer>
 
 <script src="script.js"></script>
 </body>
