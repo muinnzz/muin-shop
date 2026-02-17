@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muin Shop - Tema Kuning Zenitsu</title>
+<title>Muin Shop - Zenitsu Theme</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="font-poppins">
 
 <!-- Navbar -->
 <header>
   <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
-    <h1 class="text-2xl font-bold text-yellow-600">MUIN SHOP</h1>
+    <h1 class="text-2xl font-bold text-yellow-500">MUIN SHOP</h1>
     <div class="space-x-4 flex items-center">
       <span class="relative ml-4">
         🛒 <span id="cart-count" class="bg-red-500 text-xs px-2 rounded-full">0</span>
@@ -22,7 +21,7 @@
       <a href="#produk">Produk</a>
       <a href="#order">Order</a>
       <a href="#login">Login</a>
-      <button onclick="toggleMode()" class="bg-yellow-400 text-black px-3 py-1 rounded">Mode</button>
+      <button onclick="toggleMode()" class="bg-yellow-400 text-black px-3 py-1 rounded ml-2">Mode</button>
     </div>
   </div>
 </header>
@@ -36,13 +35,13 @@
 </section>
 
 <!-- Produk Section -->
-<section id="produk" class="py-16">
+<section id="produk">
   <h3>Senarai Produk</h3>
   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="produk-list"></div>
 </section>
 
 <!-- Order Form -->
-<section id="order" class="py-16">
+<section id="order">
   <div class="max-w-xl mx-auto">
     <h3>Borang Order</h3>
     <form id="orderForm">
@@ -54,11 +53,18 @@
       <textarea id="note" placeholder="Nota tambahan"></textarea>
       <button type="submit" class="neon-button">Hantar Order</button>
     </form>
+    <!-- Troli -->
+    <div class="mt-4">
+      <h4>Troli:</h4>
+      <ul id="cart-list"></ul>
+      <p id="cart-total">Total: RM0</p>
+      <button onclick="checkout()" class="neon-button mt-2 w-full">Checkout</button>
+    </div>
   </div>
 </section>
 
 <!-- Login Admin -->
-<section id="login" class="py-16">
+<section id="login">
   <div class="max-w-md mx-auto">
     <h3>Login Admin</h3>
     <form id="loginForm">
@@ -70,20 +76,17 @@
 </section>
 
 <!-- Admin Chart -->
-<section id="admin-chart" class="hidden py-16">
+<section id="admin-chart" class="hidden">
   <div class="max-w-3xl mx-auto">
     <h3>Statistik Jualan</h3>
     <canvas id="salesChart"></canvas>
   </div>
 </section>
 
-<!-- Toast Notification -->
-<div id="toast" class="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden"></div>
+<!-- Popup / Toast -->
+<div id="popup" class="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden"></div>
 
-<!-- Popup -->
-<div id="popup" class="fixed bottom-16 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow hidden"></div>
-
-<footer class="py-4 text-center text-black bg-yellow-400">
+<footer>
   © 2026 Muin Shop
 </footer>
 
