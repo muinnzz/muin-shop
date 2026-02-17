@@ -1,8 +1,11 @@
-/* Body & Font */
+/* ====================
+   BODY & FONT
+==================== */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #FFF3A1;
+  background-color: #FFF3A1; /* Kuning Zenitsu */
   color: #000;
+  transition: all 0.3s ease;
 }
 
 body.dark-mode {
@@ -10,9 +13,11 @@ body.dark-mode {
   color: #fff;
 }
 
-/* Navbar */
+/* ====================
+   HEADER / NAVBAR
+==================== */
 header {
-  background-color: #f5c518;
+  background-color: #f5c518; /* Kuning tua */
   border-bottom: 2px solid #e0b700;
   padding: 1rem;
   display: flex;
@@ -23,6 +28,7 @@ header {
 header a {
   color: #333;
   text-decoration: none;
+  margin-left: 1rem;
   transition: color 0.3s ease;
 }
 
@@ -30,10 +36,28 @@ header a:hover {
   color: #fff;
 }
 
-/* Hero Section */
+header button {
+  background-color: #ffd700;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+header button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700;
+}
+
+/* ====================
+   HERO SECTION
+==================== */
 .hero-section {
   text-align: center;
-  padding: 6rem 1rem;
+  padding: 5rem 1rem;
+  position: relative;
 }
 
 .hero-section h2 {
@@ -47,9 +71,9 @@ header a:hover {
   margin-bottom: 2rem;
 }
 
-/* Hero Banner */
+/* Banner */
 .hero-banner {
-  background-image: url('https://i.ibb.co/vCzQy1TK/banner-zenitsu.jpg');
+  background-image: url('https://i.ibb.co/vCzQy1TK/zenitsu-banner.jpg'); 
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -58,7 +82,9 @@ header a:hover {
   margin-bottom: 2rem;
 }
 
-/* Neon Button */
+/* ====================
+   NEON BUTTON
+==================== */
 .neon-button {
   background-color: #ffd700;
   color: #333;
@@ -67,7 +93,9 @@ header a:hover {
   border-radius: 1.5rem;
   box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
   transition: all 0.3s ease;
+  cursor: pointer;
   display: inline-block;
+  text-align: center;
 }
 
 .neon-button:hover {
@@ -75,7 +103,9 @@ header a:hover {
   box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700;
 }
 
-/* Produk Card */
+/* ====================
+   PRODUK CARDS
+==================== */
 #produk-list div {
   background-color: #fff1b8;
   border: 1px solid #ffd700;
@@ -96,7 +126,9 @@ header a:hover {
   color: #333;
 }
 
-/* Form Inputs */
+/* ====================
+   FORM INPUTS
+==================== */
 input, select, textarea {
   background-color: #fff8dc;
   color: #333;
@@ -113,26 +145,51 @@ input:focus, select:focus, textarea:focus {
   outline: none;
 }
 
-/* Section Titles */
+/* ====================
+   SECTION TITLES
+==================== */
 h3 {
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
+  background: linear-gradient(90deg,#facc15,#fde047);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-/* Animasi Fade In */
+/* ====================
+   FOOTER
+==================== */
+footer {
+  background-color: #f5c518;
+  color: #333;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* ====================
+   ANIMASI
+==================== */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Toast */
-#toast {
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
+/* Popup QR / Toast */
+#popup {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #ffd700;
+  color: #000;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px #ffd700;
+  z-index: 100;
+  display: none;
+  text-align: center;
 }
-#toast.show {
-  opacity: 1;
-  pointer-events: auto;
+
+#popup.show {
+  display: block;
 }
