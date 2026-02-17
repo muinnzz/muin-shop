@@ -2,54 +2,31 @@
 // TROLI / CART
 let cart = [];
 
-function addToCart(name, price, payLink) {
-  // Tambah item ke troli
-  cart.push({ name, price, payLink });
+function addToCart(name, price) {
+  cart.push({ name, price });
   updateCartUI();
   showPopup(`Produk "${name}" ditambah ke troli 🛒`);
 }
 
-// Update UI troli
 function updateCartUI() {
   const cartCount = document.getElementById("cart-count");
-  if (cartCount) cartCount.textContent = cart.length;
-
-  const cartList = document.getElementById("cart-list");
-  const cartTotal = document.getElementById("cart-total");
-  if (cartList && cartTotal) {
-    cartList.innerHTML = "";
-    let total = 0;
-    cart.forEach((item, index) => {
-      total += item.price;
-      const li = document.createElement("li");
-      li.innerHTML = `
-        ${item.name} - RM${item.price} 
-        <button onclick="removeFromCart(${index})" class="text-red-500 ml-2">Hapus</button>
-      `;
-      cartList.appendChild(li);
-    });
-    cartTotal.textContent = `Total: RM${total}`;
+  if(cartCount){
+    cartCount.textContent = cart.length;
   }
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-  showPopup("Produk dihapus dari troli 🗑️");
 }
 
 // ============================
 // POPUP / TOAST
-function showPopup(msg) {
+function showPopup(msg){
   const popup = document.getElementById('popup');
   popup.innerHTML = msg;
   popup.style.display = 'block';
-  setTimeout(() => popup.style.display = 'none', 3000);
+  setTimeout(()=>popup.style.display='none', 3000);
 }
 
 // ============================
 // TOGGLE MODE GELAP / TERANG
-function toggleMode() {
+function toggleMode(){
   document.body.classList.toggle('dark-mode');
 }
 
@@ -62,9 +39,16 @@ for (let i = 1; i <= 12; i++) {
     desc: `Servis digital ${i}`,
     price: i * 10,
     payLink: `https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
-    qr: `https://via.placeholder.com/150?text=QR+Panel+${i}`,
+    qr: `https://via.placeholder.com/150?text=QR+Panel+${i}`, // QR code
     img: `https://via.placeholder.com/300x200?text=Produk+${i}`
   });
+}
+
+// ============================
+// Beli Sekarang → Troli + QR
+function beliSekarang(name, price, qrLink) {
+  addToCart(name, price); // masuk troli
+  showQR(qrLink);         // tampil QR
 }
 
 // ============================
@@ -75,45 +59,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   produkList.forEach(p => {
     const card = document.createElement('div');
-    card.className = "produk-card";
+    card.className = "bg-[#fff1b8] p-4 rounded-xl mb-4 shadow-md"; // contoh styling
     card.innerHTML = `
       <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded-xl mb-4">
       <h4 class="text-xl font-semibold mb-2">${p.name}</h4>
       <p class="mb-2">${p.desc}</p>
       <p class="text-2xl font-bold mb-4">RM${p.price}</p>
       <div class="flex gap-2">
-        <button class="w-full neon-button" onclick="addToCart('${p.name}', ${p.price}, '${p.payLink}')">Beli Sekarang</button>
+        <button class="w-full neon-button" onclick="beliSekarang('${p.name}', ${p.price}, '${p.qr}')">Beli Sekarang</button>
         <button class="w-full neon-button bg-gray-300 text-black" onclick="showQR('${p.qr}')">QR</button>
       </div>
     `;
     produkDiv.appendChild(card);
 
-    // select option
+    // Tambah ke select
     const opt = document.createElement('option');
     opt.value = p.name;
     opt.textContent = p.name;
     productSelect.appendChild(opt);
   });
-
-  // Buat daftar troli di order section
-  const orderSection = document.getElementById('order');
-  const cartHTML = document.createElement('div');
-  cartHTML.innerHTML = `
-    <h4>Troli:</h4>
-    <ul id="cart-list"></ul>
-    <p id="cart-total">Total: RM0</p>
-    <button onclick="checkout()" class="neon-button mt-2 w-full">Checkout</button>
-  `;
-  orderSection.appendChild(cartHTML);
 });
 
 // ============================
 // TAMPILKAN QR
-function showQR(link) {
+function showQR(link){
   const popup = document.getElementById('popup');
   popup.innerHTML = `<img src="${link}" alt="QR Code" class="w-40 h-40 mx-auto rounded">`;
   popup.style.display = 'block';
-  setTimeout(() => popup.style.display = 'none', 5000);
+  setTimeout(()=>popup.style.display='none', 5000);
 }
 
 // ============================
@@ -125,12 +98,10 @@ document.getElementById('orderForm').addEventListener('submit', function(e){
   const produk = document.getElementById('product').value;
   const note = document.getElementById('note').value;
 
-  const price = produkList.find(p => p.name === produk)?.price || 0;
-
   const orderData = {
     name: nama,
     product: produk,
-    price: price,
+    price: produkList.find(p=>p.name===produk)?.price || 0,
     whatsapp: wa,
     note: note,
     status: "Pending"
@@ -141,14 +112,14 @@ document.getElementById('orderForm').addEventListener('submit', function(e){
 
 // ============================
 // RESIT / RECEIPT
-function showReceipt(data) {
+function showReceipt(data){
   alert(`
 RESIT PEMBELIAN
 Nama: ${data.name}
 Produk: ${data.product}
 Harga: RM${data.price}
 Status: ${data.status}
-  `);
+`);
 }
 
 // ============================
@@ -158,16 +129,3 @@ document.getElementById('loginForm').addEventListener('submit', function(e){
   const user = document.getElementById('username').value;
   alert(`Login dicatat (testing)\nUsername: ${user}`);
 });
-
-// ============================
-// CHECKOUT TROLI
-function checkout() {
-  if (cart.length === 0) {
-    showPopup("Troli kosong! Tambah produk dulu 🛒");
-    return;
-  }
-  cart.forEach(item => window.open(item.payLink, '_blank'));
-  showPopup("Semua link pembayaran dibuka! 💸");
-  cart = [];
-  updateCartUI();
-}
