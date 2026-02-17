@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 10000;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("public"));
 
 const db = new sqlite3.Database('db.sqlite');
 
