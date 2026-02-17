@@ -32,43 +32,76 @@ function hideLoader(btn,text){
 const produkList = [];
 for(let i=1;i<=12;i++){
   produkList.push({
-    name:`Panel ${i}`,
-    desc:`Servis digital ${i}`,
-    price:i*10,
-    payLink:`https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
-    img:`https://via.placeholder.com/300x200/6366f1/ffffff?text=Panel+${i}`
+    name: `Panel ${i}`,
+    desc: `Servis digital ${i}`,
+    price: i*10,
+    payLink: `https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
+    img: `https://via.placeholder.com/300x200?text=Produk+${i}`
   });
 }
-const produkDiv=document.getElementById('produk-list');
-const productSelect=document.getElementById('product');
+
+// Masukkan produk ke div #produk-list
+const produkDiv = document.getElementById('produk-list');
 produkList.forEach(p=>{
-  const div=document.createElement('div');
-  div.className="bg-[#020617] border border-gray-800 rounded-2xl p-4 hover:border-indigo-500 hover:scale-105 transition relative shadow-md opacity-0 translate-y-8";
-  div.innerHTML=`
+  const card = document.createElement('div');
+  card.className = 'bg-[#020617] border border-gray-800 rounded-2xl p-4 hover:border-indigo-500 transition';
+  card.innerHTML = `
     <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded-xl mb-4">
     <h4 class="text-xl font-semibold mb-2">${p.name}</h4>
     <p class="text-gray-400 mb-2">${p.desc}</p>
     <p class="text-2xl font-bold text-indigo-400 mb-4">RM${p.price}</p>
-    <button class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded-xl mb-2 neon-button transition">Beli Sekarang</button>
+    <button class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded-xl neon-button transition"
+      onclick="beliProduk('${p.name}', ${p.price}, '${p.payLink}')">
+      Beli Sekarang
+    </button>
   `;
-  div.querySelector('button').onclick=async()=>{
-    const whatsapp=prompt("Masukkan nombor WhatsApp anda:");
-    if(!whatsapp) return;
-    const btn=div.querySelector('button');
-    showLoader(btn);
-    const res=await fetch('/order',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:p.name,whatsapp,product:p.name,note:`Order RM${p.price}`})
-    });
-    const result=await res.json();
-    hideLoader(btn,'Beli Sekarang');
-    if(result.success) showToast('Order berjaya disimpan!');
-    else showToast('Order gagal!');
-    window.open(p.payLink,'_blank');
-  }
-  produkDiv.appendChild(div);
-  observer.observe(div);
+  produkDiv.appendChild(card);
+});
+
+// Masukkan produk ke select #product
+const productSelect = document.getElementById('product');
+produkList.forEach(p=>{
+  const opt = document.createElement('option');
+  opt.value = p.name;
+  opt.textContent = p.name;
+  productSelect.appendChild(opt);
+});const produkList = [];
+for(let i=1;i<=12;i++){
+  produkList.push({
+    name: `Panel ${i}`,
+    desc: `Servis digital ${i}`,
+    price: i*10,
+    payLink: `https://wa.me/60123456789?text=Saya%20nak%20beli%20Panel%20${i}%20(RM${i*10})`,
+    img: `https://via.placeholder.com/300x200?text=Produk+${i}`
+  });
+}
+
+// Masukkan produk ke div #produk-list
+const produkDiv = document.getElementById('produk-list');
+produkList.forEach(p=>{
+  const card = document.createElement('div');
+  card.className = 'bg-[#020617] border border-gray-800 rounded-2xl p-4 hover:border-indigo-500 transition';
+  card.innerHTML = `
+    <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded-xl mb-4">
+    <h4 class="text-xl font-semibold mb-2">${p.name}</h4>
+    <p class="text-gray-400 mb-2">${p.desc}</p>
+    <p class="text-2xl font-bold text-indigo-400 mb-4">RM${p.price}</p>
+    <button class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded-xl neon-button transition"
+      onclick="beliProduk('${p.name}', ${p.price}, '${p.payLink}')">
+      Beli Sekarang
+    </button>
+  `;
+  produkDiv.appendChild(card);
+});
+
+// Masukkan produk ke select #product
+const productSelect = document.getElementById('product');
+produkList.forEach(p=>{
+  const opt = document.createElement('option');
+  opt.value = p.name;
+  opt.textContent = p.name;
+  productSelect.appendChild(opt);
+}););
 
   // add to select
   const opt=document.createElement('option');
