@@ -62,6 +62,12 @@ function showReceipt(data){
   Status: Pending
   `);
 }
+function showPopup(msg){
+  const p=document.getElementById('popup');
+  p.textContent=msg;
+  p.classList.remove('hidden');
+  setTimeout(()=>p.classList.add('hidden'),3000);
+}
 document.getElementById('orderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const nama = document.getElementById('name').value;
